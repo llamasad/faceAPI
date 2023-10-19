@@ -4,10 +4,23 @@ async function onSelectedImageChanged(uri) {
   updateResults()
 }
 
+async function handleOnChangeInput(ele) {
+  const imgFile = ele.files[0]
+  const spinner=$('.mb-overlay--spinner') ;
+  console.log(spinner)
+  spinner.show()
+  const img = await faceapi.bufferToImage(imgFile);
+  spinner.hide() 
+  $('.mb-overlay-body-wrap').show()
+  $('#inputImg').get(0).src = img.src; 
+  $('.mb-overlay').show();
+
+}
+
+
 async function loadImageFromUrl(url) {
   console.log(url)
   const img = await requestExternalImage($('#imgUrlInput').val())
-  console.log(img)
   $('#inputImg').get(0).src = img.src
   updateResults()
 }

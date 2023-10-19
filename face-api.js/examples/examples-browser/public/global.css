@@ -1,0 +1,109 @@
+h1{
+    color: red;
+    font-family: 'halloween';
+
+}
+
+@font-face {
+    font-family: 'halloween';
+    src: url('font/CFHalloween-Regular.ttf');
+}
+@font-face {
+    font-family: 'halloween2';
+    src: url('font/shloprg.otf');
+}
+
+.container{
+    margin-top: -40px !important;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 100vw;
+    min-height: 100vh;
+
+
+}
+.mb-container{
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    min-width: 100vw;
+    min-height: 100vh;
+      
+}
+.switch-qr{  
+    width: 40px;
+    opacity: 0;
+    transition: opacity 0.2s linear !important;
+}
+
+.switch-qr:hover{
+    opacity: 1;
+}
+
+.mb-input-img--css{
+    display: none !important;
+}
+.mb-label-img{
+   display: block;
+    text-align: center;
+    padding: 0 10px;
+    font-size: 40px;
+    position: relative;
+    font-family: 'halloween2';
+}
+.mb-pumbkin-text{
+    position: absolute;
+    left: calc(50% - 70px);
+    top:100px;
+    color: #4a006d;
+}
+.mb-overlay{
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(44, 44, 44, 0.632);
+    display: none;
+
+}
+.mb-overlay-body{
+    border-radius: 10px;
+    margin: 40px auto 0;
+    background-color: white;
+    width: calc(100% - 20px);
+    font-family: 'halloween2';
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    transition: height 0.4s ease-in;
+    overflow: hidden;
+}
+.mb-img-container{
+    width: 100%;
+    height: 380px;
+    object-fit: contain;
+}
+.mb-sm-img{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.mb-sm-img--denied{
+    background-color: rgb(150, 150, 150);
+}
+.mb-sm-img--acceppt{
+    background-color:#e6c405;
+
+}
+.mb-sm-img-all{
+    cursor: pointer;
+    border-radius: 14px;
+    padding: 6px 12px;
+
+}
+.mb-overlay-body-wrap{
+    display: none   ;
+}

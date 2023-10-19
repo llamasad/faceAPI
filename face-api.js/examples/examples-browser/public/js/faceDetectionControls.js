@@ -1,3 +1,4 @@
+
 const SSD_MOBILENETV1 = 'ssd_mobilenetv1'
 const TINY_FACE_DETECTOR = 'tiny_face_detector'
 
@@ -23,11 +24,6 @@ function onIncreaseMinConfidence() {
   updateResults()
 }
 
-function onScreamShoot(){
-
-}
-
-
 
 function onDecreaseMinConfidence() {
   minConfidence = Math.max(faceapi.utils.round(minConfidence - 0.1), 0.1)
@@ -38,6 +34,12 @@ function onDecreaseMinConfidence() {
 function onInputSizeChanged(e) {
   changeInputSize(e.target.value)
   updateResults()
+}
+
+function handleSubmitImg(){
+  const uriImg=$('.mb-img-container').get(0).src;
+  console.log(uriImg)
+  httpRequest('post','/api/userdata',{uriImg})
 }
 
 function changeInputSize(size) {

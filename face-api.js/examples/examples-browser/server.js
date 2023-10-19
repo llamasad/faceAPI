@@ -1,40 +1,35 @@
+
 const express = require('express')
 const path = require('path')
 const { get } = require('request')
-
+const router= require('./router')
+const morgan = require('morgan');
+const handlebars = require('express-handlebars'); 
+const sass = require('sass');
+const tf = require('@tensorflow/tfjs-node');
+tf.setBackend('tensorflow');
 const app = express()
 
+// app.use(morgan('combined'))
+app.use(express.urlencoded())
 app.use(express.json())
+const connectDB = require('./config/db')
 app.use(express.urlencoded({ extended: true }))
+connectDB.connect();
+app.engine('handlebars',handlebars.engine())
+
+app.set('view engine','handlebars')
+
+app.set('views',path.join(__dirname,'resources/views'))
 
 const viewsDir = path.join(__dirname, 'views')
-console.log(viewsDir)
-app.use(express.static(viewsDir))
 app.use(express.static(path.join(__dirname, './public')))
 app.use(express.static(path.join(__dirname, '../images')))
 app.use(express.static(path.join(__dirname, '../media')))
 app.use(express.static(path.join(__dirname, '../../weights')))
 app.use(express.static(path.join(__dirname, '../../dist')))
 
-app.get('/', (req, res) => res.redirect('/face_detection'))
-app.get('/face_detection', (req, res) => res.sendFile(path.join(viewsDir, 'faceDetection.html')))
-app.get('/face_landmark_detection', (req, res) => res.sendFile(path.join(viewsDir, 'faceLandmarkDetection.html')))
-app.get('/face_expression_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'faceExpressionRecognition.html')))
-app.get('/age_and_gender_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'ageAndGenderRecognition.html')))
-app.get('/face_extraction', (req, res) => res.sendFile(path.join(viewsDir, 'faceExtraction.html')))
-app.get('/face_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'faceRecognition.html')))
-app.get('/video_face_tracking', (req, res) => res.sendFile(path.join(viewsDir, 'videoFaceTracking.html')))
-app.get('/webcam_face_detection', (req, res) => res.sendFile(path.join(viewsDir, 'webcamFaceDetection.html')))
-app.get('/webcam_face_landmark_detection', (req, res) => res.sendFile(path.join(viewsDir, 'webcamFaceLandmarkDetection.html')))
-app.get('/webcam_face_expression_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'webcamFaceExpressionRecognition.html')))
-app.get('/webcam_age_and_gender_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'webcamAgeAndGenderRecognition.html')))
-app.get('/bbt_face_landmark_detection', (req, res) => res.sendFile(path.join(viewsDir, 'bbtFaceLandmarkDetection.html')))
-app.get('/bbt_face_similarity', (req, res) => res.sendFile(path.join(viewsDir, 'bbtFaceSimilarity.html')))
-app.get('/bbt_face_matching', (req, res) => res.sendFile(path.join(viewsDir, 'bbtFaceMatching.html')))
-app.get('/bbt_face_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'bbtFaceRecognition.html')))
-app.get('/batch_face_landmarks', (req, res) => res.sendFile(path.join(viewsDir, 'batchFaceLandmarks.html')))
-app.get('/batch_face_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'batchFaceRecognition.html')))
-
+router(app);
 app.post('/fetch_external_image', async (req, res) => {
   const { imageUrl } = req.body
   if (!imageUrl) {

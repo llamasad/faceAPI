@@ -26,6 +26,23 @@ async function requestExternalImage(imageUrl) {
   }
 }
 
+async function httpRequest(type='get',path='/',value={}){
+try{  switch(type){ 
+   case 'post':
+       return await axios[type](path,value);
+       
+   case 'get':
+       return await axios[type](path);
+    default:
+      return;
+   }}
+   catch(error){
+    console.warn('axios error:'+error)
+   }
+
+}
+
+
 function renderNavBar(navbarId, exampleUri) {
   const examples = [
     {
